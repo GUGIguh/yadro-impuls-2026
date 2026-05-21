@@ -43,15 +43,15 @@ export class UserForm implements OnInit{
 
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
-    username: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9_]+$/)]],
+    username: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9_.]+$/)]],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.pattern(/^\+?\d{7,15}$/)]],
-    website: ['', [Validators.pattern(/^(https?:\/\/)?[\w\-]+(\.[\w\-]+)+.*$/)]],
+    phone: [''],
+    website: [''],
     address: this.fb.group({
       street: [''],
       suite: [''],
       city: [''],
-      zipcode: ['', [Validators.pattern(/^\d{5,10}$/)]]
+      zipcode: ['']
     }),
     company: this.fb.group({
       name: [''],
@@ -59,6 +59,17 @@ export class UserForm implements OnInit{
       bs: ['']
     })
   });
+
+  private markFormDirty(form: any): void {
+    Object.values(form.controls).forEach((control: any) => {
+      if (control.controls) {
+        this.markFormDirty(control);
+      } else {
+        control.markAsDirty();
+        control.updateValueAndValidity();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -82,10 +93,7 @@ export class UserForm implements OnInit{
 
   onSubmit(): void {
     if (this.form.invalid) {
-      Object.values(this.form.controls).forEach(control => {
-        control.markAsDirty();
-        control.updateValueAndValidity();
-      });
+        this.markFormDirty(this.form);
       return;
     }
 

@@ -8,18 +8,31 @@
 
     </div>
 
-    <nz-table class="user-table"  #basicTable [nzData]="users()" [nzLoading]="loading()" [nzPageSize]="2" nzBordered>
+    <nz-table class="user-table"  #basicTable [nzData]="filteredUsers()" [nzLoading]="loading()" [nzPageSize]="10" nzBordered>
         <thead class="table-head">
             <tr class="table-head">
+
                 <th>ID</th>
-                <th [nzFilters]="nameFilters()" [nzFilterFn]="nameFilterFn" nzShowFilter>
+
+                <th  nzCustomFilter>
                     Имя
+                    <nz-filter-trigger [(nzVisible)]="visibleNameFilter" [nzActive]="nameSearchValue.length > 0" [nzDropdownMenu]="nameMenu">
+                        <nz-icon nzType="search" />
+                    </nz-filter-trigger>
+
                 </th>
-                <th>Username</th>
-                <th [nzFilters]="emailFilters()" [nzFilterFn]="emailFilterFn" nzShowFilter>
+
+                <th> Username</th>
+
+                <th  nzCustomFilter>
                     Email
+                    <nz-filter-trigger [(nzVisible)]="visibleEmailFilter" [nzActive]="emailSearchValue.length > 0" [nzDropdownMenu]="emailMenu">
+                        <nz-icon nzType="search" />
+                    </nz-filter-trigger>
                 </th>
+
                 <th nzWidth="1%" > Действия</th>
+
             </tr>
         </thead>
         <tbody>
@@ -45,7 +58,32 @@
                 </tr>
             }
         </tbody>
+
+
     </nz-table>
 
+    <nz-dropdown-menu #nameMenu="nzDropdownMenu">
+        <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+                <input type="text" nz-input placeholder="Алексей" [(ngModel)]="nameSearchValue" />
+                <div class="button-box">
+                    <button nz-button nzSize="small" nzType="primary" (click)="filteredUsers()" class="search-button">Найти</button>
+                    <button nz-button nzSize="small" (click)="resetNameFilter()">Сбросить</button>
+                </div>
+            </div>
+        </div>
+    </nz-dropdown-menu>
+
+    <nz-dropdown-menu #emailMenu="nzDropdownMenu">
+        <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+                <input type="email" nz-input placeholder="ru@mail.ru" [(ngModel)]="emailSearchValue" />
+                <div class="button-box">
+                    <button nz-button nzSize="small" nzType="primary" (click)="filteredUsers()" class="search-button">Найти</button>
+                    <button nz-button nzSize="small" (click)="resetEmailFilter()">Сбросить</button>
+                </div>
+            </div>
+        </div>
+    </nz-dropdown-menu>
 </div>
 

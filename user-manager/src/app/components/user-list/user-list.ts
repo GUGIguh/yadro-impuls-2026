@@ -6,21 +6,24 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { UserApi } from '../../services/user-api';
-import { User } from '../../models/user.model';
+import { FormsModule } from '@angular/forms';
 import { UserStore } from '../../services/user-store';
 import {ConfirmService} from '../../services/confirm-delete';
+import {NzInputDirective} from 'ng-zorro-antd/input';
 
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
   imports: [
+    FormsModule,
     CommonModule,
     RouterModule,
     NzTableModule,
     NzButtonModule,
     NzDropdownModule,
     NzIconModule,
+    NzInputDirective,
   ],
   templateUrl: './user-list.html',
   styleUrl: './user-list.scss'
@@ -33,7 +36,12 @@ export class UserList implements OnInit {
 
 
   users = this.userStore.users;
+  emailSearchValue = signal("");
+  nameSearchValue = signal("");
+  visibleNameFilter = signal(false);
+  visibleEmailFilter =signal(false);
   loading = signal(true);
+
 
   ngOnInit(): void {
 
@@ -54,6 +62,23 @@ export class UserList implements OnInit {
     });
   }
 
+  filteredUsers = computed(() => {
+    let result = this.users();
+
+    if (this.nameSearchValue().trim()) {
+      result = result.filter(user =>
+        user.name.toLowerCase().includes(this.nameSearchValue().toLowerCase().trim())
+      );
+    }
+
+    if (this.emailSearchValue().trim()) {
+      result = result.filter(user =>
+        user.email.toLowerCase().includes(this.emailSearchValue().toLowerCase().trim())
+      );
+    }
+    return result;
+  });
+
   deleteUser(userId: number): void {
     const user = this.users().find(u => u.id === userId);
 
@@ -68,23 +93,13 @@ export class UserList implements OnInit {
     );
   }
 
-  nameFilters = computed(() => {
-    const names = [...new Set(this.users().map(u => u.name))];
-    return names.map(name => ({ text: name, value: name }));
-  });
+  resetNameFilter =() => {
+    this.nameSearchValue.set("");
+  }
 
-  emailFilters = computed(() => {
-    const emails = [...new Set(this.users().map(u => u.email))];
-    return emails.map(email => ({ text: email, value: email }));
-  });
-
-  nameFilterFn = (list: string[], item: User): boolean => {
-    return list.some(name => item.name.includes(name));
-  };
-
-  emailFilterFn = (list: string[], item: User): boolean => {
-    return list.some(email => item.email.includes(email));
-  };
+  resetEmailFilter = () => {
+    this.emailSearchValue.set("");
+  }
 
   isModified(userId: number): boolean {
     return  this.userStore.lastModifiedUsers().includes(userId);

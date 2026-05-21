@@ -23,10 +23,20 @@ export class UserStore {
     }
   }
 
-  updateUser(userId:number,updatedUser: User){
-    this.users.update(users => users.map( user => user.id === userId ? { ...user,...updatedUser,userId }: user));
-
-    this.updateQueue(userId)
+  updateUser(userId: number, updatedUser: User): void {
+    this.users.update(users =>
+      users.map(user =>
+        user.id === userId
+          ? {
+            ...user,
+            ...updatedUser,
+            address: { ...user.address, ...updatedUser.address } as User['address'],
+            company: { ...user.company, ...updatedUser.company } as User['company']
+          } as User
+          : user
+      )
+    );
+    this.updateQueue(userId);
   }
 
   removeUser(id: number){
