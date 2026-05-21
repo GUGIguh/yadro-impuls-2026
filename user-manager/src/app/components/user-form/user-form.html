@@ -1,0 +1,160 @@
+<nz-card nzTitle="{{formLabel()}} пользователя" [nzBordered]="true" class="form-card">
+    <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <h4>Основная информация</h4>
+        <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzRequired]="true">Имя</nz-form-label>
+                    <nz-form-control [nzErrorTip]="nameError">
+                        <input nz-input formControlName="name" placeholder="Введите имя" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzRequired]="true">Username</nz-form-label>
+                    <nz-form-control [nzErrorTip]="usernameError">
+                        <input nz-input formControlName="username" placeholder="Введите username" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <h4>Контакты</h4>
+        <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzRequired]="true">Email</nz-form-label>
+                    <nz-form-control [nzErrorTip]="emailError">
+                        <input nz-input formControlName="email" placeholder="Введите email" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label>Телефон</nz-form-label>
+                    <nz-form-control [nzErrorTip]="phoneError">
+                        <input nz-input formControlName="phone" placeholder="+7..." />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label>Сайт</nz-form-label>
+                    <nz-form-control [nzErrorTip]="websiteError">
+                        <input nz-input formControlName="website" placeholder="example.com" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <h4>Адрес</h4>
+        <div formGroupName="address">
+            <div nz-row [nzGutter]="16">
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Улица</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input formControlName="street" placeholder="ул. Брюсовская" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Дом/кв</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input formControlName="suite" placeholder="д. 1, кв. 2" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Город</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input formControlName="city" placeholder="Санкт-Петербург" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Индекс</nz-form-label>
+                        <nz-form-control [nzErrorTip]="zipcodeError">
+                            <input nz-input formControlName="zipcode" placeholder="123456" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+
+        <h4>Компания</h4>
+        <div formGroupName="company">
+            <div nz-row [nzGutter]="16">
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Название</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input formControlName="name" placeholder="ООО Yadro" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Слоган</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input formControlName="catchPhrase" placeholder="Лучшие в своём деле" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Деятельность</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input formControlName="bs" placeholder="Разработка ПО" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzShape="round" nzType="primary" type="submit" [nzLoading]="loading()">
+                    Подтвердить
+                </button>
+                <button nz-button nzShape="round" type="button" (click)="onCancel()" style="margin-left: 8px;">
+                    Отмена
+                </button>
+            </nz-form-control>
+        </nz-form-item>
+
+    </form>
+</nz-card>
+
+<ng-template #nameError>
+    @if (form.get('name')?.errors?.['required']) { Имя обязательно }
+    @else if (form.get('name')?.errors?.['minlength']) { Минимум 2 символа }
+</ng-template>
+
+<ng-template #usernameError>
+    @if (form.get('username')?.errors?.['required']) { Username обязателен }
+    @else if (form.get('username')?.errors?.['minlength']) { Минимум 3 символа }
+    @else if (form.get('username')?.errors?.['pattern']) { Только буквы буквы латиницы, цифры и _ }
+</ng-template>
+
+<ng-template #emailError>
+    @if (form.get('email')?.errors?.['required']) { Email обязателен }
+    @else if (form.get('email')?.errors?.['email']) { Некорректный email }
+</ng-template>
+
+<ng-template #phoneError>
+    @if (form.get('phone')?.errors?.['pattern']) { Некорректный номер }
+</ng-template>
+
+<ng-template #websiteError>
+    @if (form.get('website')?.errors?.['pattern']) { Некорректный URL }
+</ng-template>
+
+<ng-template #zipcodeError>
+    @if (form.get('address.zipcode')?.errors?.['pattern']) { 5-10 цифр }
+</ng-template>

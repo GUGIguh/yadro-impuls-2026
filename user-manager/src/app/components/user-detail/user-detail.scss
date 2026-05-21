@@ -1,0 +1,51 @@
+.detail-container {
+  max-width: 800px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.detail-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .header-icon {
+      font-size: 28px;
+      color: #0c33ff;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.section {
+  margin-top: 24px;
+}
+
+.back-button {
+  margin-top: 24px;
+}
+
+::ng-deep .ant-table-thead > tr > th,
+::ng-deep .ant-table-tbody > tr > td {
+  border-width: 2px;
+}

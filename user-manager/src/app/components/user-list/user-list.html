@@ -1,0 +1,51 @@
+
+<div class="main-container">
+    <div class="header-container">
+        <h1 class="header">
+            Сейчас в базе данных <span class="user-count"> {{users().length}} </span> пользователей
+        </h1>
+        <button nz-button nzShape="round" [routerLink]="['/users/new']"> Добавить пользователя </button>
+
+    </div>
+
+    <nz-table class="user-table"  #basicTable [nzData]="users()" [nzLoading]="loading()" [nzPageSize]="2" nzBordered>
+        <thead class="table-head">
+            <tr class="table-head">
+                <th>ID</th>
+                <th [nzFilters]="nameFilters()" [nzFilterFn]="nameFilterFn" nzShowFilter>
+                    Имя
+                </th>
+                <th>Username</th>
+                <th [nzFilters]="emailFilters()" [nzFilterFn]="emailFilterFn" nzShowFilter>
+                    Email
+                </th>
+                <th nzWidth="1%" > Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (user of basicTable.data; track user.id) {
+                <tr [class.modified-row] = "isModified(user.id)" (click) = "openUserInfo(user.id)">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td class="table-action">
+                        <button nz-button nzType="primary" nzShape="circle" nzDanger  class="delete-user button" (click) = "deleteUser(user.id); $event.stopPropagation()" >
+                            <nz-icon nzType="delete" nzTheme="outline" />
+                        </button>
+
+                        <a nz-button nzType="primary" nzShape="circle" class="edit-user button" [routerLink]="['/users', user.id, 'edit']" (click)="$event.stopPropagation()">
+                            <nz-icon nzType="edit" nzTheme="outline" />
+                        </a>
+
+                        <a  [routerLink]="['/users', user.id]" (click)="$event.stopPropagation()"> Обзор </a>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </nz-table>
+
+</div>
+

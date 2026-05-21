@@ -1,0 +1,80 @@
+<div class="detail-container">
+    <nz-spin [nzSpinning]="loading()">
+
+        @if (user(); as userData) {
+            <nz-card [nzBordered]="true" class="detail-card">
+
+                <div class="detail-header">
+                    <div class="header-left">
+                        <nz-icon nzType="user" nzTheme="outline" class="header-icon"></nz-icon>
+                        <h2>{{ userData.name }}</h2>
+                    </div>
+                    <div class="header-actions">
+                        <button nz-button nzShape="round" nzType="primary" (click)="editUser()">
+                            <nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+                            Редактировать
+                        </button>
+                        <button nz-button nzShape="round" nzDanger (click)="deleteUser()">
+                            <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+
+                <nz-divider></nz-divider>
+
+                <nz-descriptions nzTitle="Основная информация" [nzColumn]="2" nzBordered>
+                    <nz-descriptions-item nzTitle="ID">{{ userData.id }}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Username">{{ userData.username }}</nz-descriptions-item>
+
+                </nz-descriptions>
+
+                <nz-descriptions nzTitle="Контакты" [nzColumn]="2" nzBordered>
+                    <nz-descriptions-item nzTitle="Email">
+                        <a [href]="'mailto:' + userData.email">{{ userData.email }}</a>
+                    </nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Телефон">{{ userData.phone || '—' }}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Сайт">
+                        @if (userData.website) {
+                            <a [href]="'https://' + userData.website" target="_blank">{{ userData.website }}</a>
+                        } @else {
+                            —
+                        }
+                    </nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Сайт">
+                        @if (userData.website) {
+                            <a [href]="'https://' + userData.website" target="_blank">{{ userData.website }}</a>
+                        } @else {
+                            —
+                        }
+                    </nz-descriptions-item>
+                </nz-descriptions>
+
+                @if (userData.address) {
+                    <nz-descriptions nzTitle="Адрес" [nzColumn]="2" nzBordered class="section">
+                        <nz-descriptions-item nzTitle="Улица">{{ userData.address.street }}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Квартира">{{ userData.address.suite }}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Город">{{ userData.address.city }}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Индекс">{{ userData.address.zipcode }}</nz-descriptions-item>
+                    </nz-descriptions>
+                }
+
+                @if (userData.company) {
+                    <nz-descriptions nzTitle="Компания" [nzColumn]="1" nzBordered class="section">
+                        <nz-descriptions-item nzTitle="Название">{{ userData.company.name }}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Слоган">{{ userData.company.catchPhrase }}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Бизнес">{{ userData.company.bs }}</nz-descriptions-item>
+                    </nz-descriptions>
+                }
+
+                <div class="back-button">
+                    <button nz-button nzShape="round" (click)="goBack()">
+                        <nz-icon nzType="arrow-left" nzTheme="outline"></nz-icon>
+                        Назад к списку
+                    </button>
+                </div>
+
+            </nz-card>
+        }
+    </nz-spin>
+</div>

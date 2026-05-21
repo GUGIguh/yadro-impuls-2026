@@ -1,0 +1,15 @@
+@import "ng-zorro-antd/ng-zorro-antd.min.css";
+
+.ant-table-filter-trigger:hover,
+.ant-table-filter-trigger.active {
+  color: #ffffff;
+}
+
+.ant-table-filter-dropdown-btns .ant-btn-primary {
+  background: #0c33ff !important;
+  border-color: #0c33ff !important;
+}
+
+.ant-table-filter-dropdown-btns .ant-btn-link {
+  color: #0c33ff;
+}

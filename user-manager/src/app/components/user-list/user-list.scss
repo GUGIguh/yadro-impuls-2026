@@ -1,0 +1,111 @@
+body{
+  --ant-primary-color: #0c33ff;
+  --ant-primary-color-hover: #3355ff;
+}
+
+.main-container{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin:25px;
+
+  .header-container{
+    display: flex;
+    align-items:  center;
+    gap: 20px;
+
+    .ant-btn{
+      background-color:#0c33ff;
+      color:white;
+
+      &:hover{
+        background-color: #255fcf;
+      }
+    }
+
+    .header{
+      display:flex;
+      gap:5px;
+      font-size: 20px;
+      font-weight: normal;
+      margin: 0;
+      span{
+        color: #0c33ff;
+      }
+    }
+  }
+}
+
+.table-action {
+  display: flex;
+  gap: 30px;
+  width: fit-content;
+}
+
+.delete-user:hover {
+  color: #f30000;
+}
+
+.edit-user:hover {
+  background: #0c33ff;
+}
+
+.modified-row {
+  background-color: rgba(24, 144, 255, 0.08);
+  transition: background-color 0.3s ease;
+}
+
+.button{
+  background-color: #92caff;
+  border: none;
+}
+
+::ng-deep .ant-table-thead > tr > th{
+  background: #0c33ff;
+  color: #ffffff ;
+  border-width: 2px;
+}
+
+::ng-deep .ant-table-tbody > tr > td {
+  border-width: 2px;
+}
+
+::ng-deep .ant-pagination{
+
+  ul{
+
+    margin-top: 20px;
+    .ant-pagination-item{
+
+      border-radius: 50%;
+      background:#0c33ff;;
+      a{
+        color: #ffffff ;
+      }
+    }
+    .ant-pagination-item-active{
+      scale: 1.25;
+      border: none;
+    }
+
+     .ant-pagination-prev,.ant-pagination-next {
+       button {
+         display: flex;
+         justify-content: center;
+         border-radius: 30%;
+         //color: #0c33ff;
+
+         &:hover{
+           border-color: #0c33ff;
+           color: #0c33ff;
+         }
+
+         .anticon{
+            font-size: 15px;
+         }
+       }
+    }
+  }
+}
+
+
