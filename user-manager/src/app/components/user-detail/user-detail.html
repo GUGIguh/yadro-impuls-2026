@@ -33,20 +33,9 @@
                     <nz-descriptions-item nzTitle="Email">
                         <a [href]="'mailto:' + userData.email">{{ userData.email }}</a>
                     </nz-descriptions-item>
-                    <nz-descriptions-item nzTitle="Телефон">{{ userData.phone || '—' }}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Телефон">{{ userData.phone }}</nz-descriptions-item>
                     <nz-descriptions-item nzTitle="Сайт">
-                        @if (userData.website) {
-                            <a [href]="'https://' + userData.website" target="_blank">{{ userData.website }}</a>
-                        } @else {
-                            —
-                        }
-                    </nz-descriptions-item>
-                    <nz-descriptions-item nzTitle="Сайт">
-                        @if (userData.website) {
-                            <a [href]="'https://' + userData.website" target="_blank">{{ userData.website }}</a>
-                        } @else {
-                            —
-                        }
+                        <a [href]="'https://' + userData.website" target="_blank">{{ userData.website }}</a>
                     </nz-descriptions-item>
                 </nz-descriptions>
 

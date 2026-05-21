@@ -93,7 +93,6 @@ body{
          display: flex;
          justify-content: center;
          border-radius: 30%;
-         //color: #0c33ff;
 
          &:hover{
            border-color: #0c33ff;
@@ -153,12 +152,12 @@ body{
     }
 
     .ant-btn-primary {
-      background: #0c33ff !important;
-      border-color: #0c33ff !important;
+      background: #0c33ff ;
+      border-color: #0c33ff;
 
       &:hover {
-        background: #1a44ff !important;
-        border-color: #1a44ff !important;
+        background: #1a44ff;
+        border-color: #1a44ff;
       }
   }
 
